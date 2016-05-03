@@ -13,12 +13,7 @@ public class rosterOp implements java.io.Serializable {
     transient Scanner read = new Scanner(System.in);
 
     public boolean idchk(int a){
-        if(idchk.contains(a)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return idchk.contains(a);
     }
 
     public int printOptions(){
@@ -108,9 +103,7 @@ public class rosterOp implements java.io.Serializable {
     }
 
     public void delRoster(){
-        Roster x;
         int delId;
-        int i;
         System.out.print("Enter the Id of the Roster: ");
         delId=read.nextInt();
         if(rosLst.containsKey(delId)){
@@ -121,7 +114,7 @@ public class rosterOp implements java.io.Serializable {
     }
 
     public void printRoster(){
-        Roster x = new Roster();
+        Roster x;
         int id;
 
         System.out.print("Enter the Roster id: ");
@@ -141,7 +134,6 @@ public class rosterOp implements java.io.Serializable {
 
     public void printAll(){
         Roster x;
-        int i;
         for (int key : rosLst.keySet()){
             x=rosLst.get(key);
             x.printRoster();
@@ -150,28 +142,33 @@ public class rosterOp implements java.io.Serializable {
 
     public void copyRoster(){
         Roster x;
-        int ident;
         int newId;
+        Roster y= new Roster();
         String nam;
+        int ident;
         System.out.print("Enter the Roster Id to copy: ");
         ident=read.nextInt();
         if(rosLst.containsKey(ident)){
             x=rosLst.get(ident);
+            y.lst=x.lst;
+            y.idchk=x.idchk;
             System.out.println("Roster found Initiating Copy.");
             System.out.print("Enter Name for Roster: ");
             nam=read.next();
-            x.setRosName(nam);
+            y.setRosName(nam);
             newId=ident;
             while(true){
+                System.out.println("THis runs");
+                System.out.println(newId);
                 newId=newId*2;
-                if(idchk.contains(newId)){
-                }
-                else
+                if(!idchk.contains(newId)){
                     break;
-
+                }
             }
+            System.out.println(newId);
+            y.setRosterId(newId);
             idchk.add(newId);
-            rosLst.put(newId, x);
+            rosLst.put(newId, y);
             System.out.println("Roster Has been copied.");
         }
     }
@@ -209,16 +206,20 @@ public class rosterOp implements java.io.Serializable {
                         return (o1.getValue().getAge()) - (o2.getValue().getAge());
                     }
                 });
+
                 Roster roster = rosLst.get(i);
-                System.out.println("Roster ID: " + roster.getRosterId());
-                System.out.println("Roster Name: " + roster.getrosName());
-                System.out.println("Student");
+                System.out.println("======================================");
+                System.out.println("Roster Id " + roster.getRosterId() );
+                System.out.println("Roster Name: " + roster.getRosterId());
                 for (HashMap.Entry<Integer, Human> entry : list) {
-                    //System.out.println("StudentID: " +entry.getValue().());
-                    System.out.println("Student Age: " + entry.getValue().getAge());
-                    System.out.println("Student First name: " + entry.getValue().getFName());
-                    System.out.println("Student Last name: " + entry.getValue().getLName());
+                    if(entry.getValue().getId()<10000)
+                        System.out.println("Student:");
+                    else
+                        System.out.println("Teacher:");
+
+                    entry.getValue().printEntry();
                 }
+                System.out.println("======================================");
             }
         }
     }
@@ -243,10 +244,8 @@ public class rosterOp implements java.io.Serializable {
 
                 try {
                     OutputStream file = new FileOutputStream(f_name);
-                    if(file != null)
-                    {
-                        System.out.println("File is " + file);
-                    }
+                    System.out.println("File is " + file);
+
                     System.out.println("1");
                     try{
                         ObjectOutputStream objOut = new ObjectOutputStream(file);
@@ -278,7 +277,7 @@ public class rosterOp implements java.io.Serializable {
                 try{
                     ObjectOutputStream objOut = new ObjectOutputStream(file);
                     for(Roster i : rosLst.values()) {
-                        objOut.writeObject(rosLst);
+                        objOut.writeObject(i);
                     }
                     System.out.println("Rosters have been serialized successfully!");
 

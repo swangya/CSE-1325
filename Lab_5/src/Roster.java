@@ -150,7 +150,7 @@ public class Roster implements java.io.Serializable {
             System.out.println("Entry Found! \n");
             z = lst.get(modId);
             z.printEntry();
-            System.out.println("Do You esnt to delete entry? (y/n)");
+            System.out.println("Do You want to delete entry? (y/n)");
             choice = read.next().trim().charAt(0);
             if (choice == 'y') {
                 lst.remove(modId);
@@ -160,14 +160,15 @@ public class Roster implements java.io.Serializable {
 
     void sortId() {
         Map<Integer, Human> treeMap = new TreeMap<>(lst);
-        List<Human> list = new ArrayList<>();
+        ArrayList<Human> list = new ArrayList<>();
+
         for (int key : treeMap.keySet()) {
             list.add(treeMap.get(key));
         }
         Collections.sort(list, new Human());
-        for (Human a : list) {
-            a.printEntry();
-        }
+        list
+                .stream()
+                .forEach(Human::printEntry);
     }
 }
 
