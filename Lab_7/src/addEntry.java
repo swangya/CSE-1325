@@ -1,7 +1,7 @@
 import java.util.*;
-
-public class addEntry implements Command {
-    Scanner read = new Scanner(System.in);
+import java.io.Serializable;
+public class addEntry implements Command, Serializable{
+    transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Human> lst= new HashMap<>();
     HashMap<Integer, Human> templst= new HashMap<>();
@@ -11,7 +11,6 @@ public class addEntry implements Command {
 
     addEntry(HashMap<Integer, Human> a){
         lst=a;
-        templst=a;
     }
     int nument;
 

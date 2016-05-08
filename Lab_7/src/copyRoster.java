@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * Created by Swangya on 5/7/2016.
  */
-public class copyRoster implements command2{
+public class copyRoster implements command2, java.io.Serializable{
     transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Roster> rosLst= new HashMap<>();

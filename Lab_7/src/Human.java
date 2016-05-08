@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Human {
+public class Human implements java.io.Serializable {
     int id;
     String FName;
     String LName;

@@ -32,6 +32,8 @@ public class createRoster implements command2 {
 
     @Override
     public HashMap<Integer, Roster> execute(){
+        x.clear();
+        x.printRoster();
         String r;
         System.out.print("Enter the Name for roster: ");
         r = read.next();

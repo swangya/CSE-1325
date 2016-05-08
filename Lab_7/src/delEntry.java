@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class delEntry implements Command {
+public class delEntry implements Command, java.io.Serializable {
     transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Human> lst= new HashMap<>();

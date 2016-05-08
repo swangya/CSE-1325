@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class delRoster implements command2{
+public class delRoster implements command2, java.io.Serializable{
     transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Roster> rosLst= new HashMap<>();

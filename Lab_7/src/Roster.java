@@ -1,8 +1,12 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Roster {
+public class Roster implements java.io.Serializable {
     public int rosterId;
     public String rosName;
+    int nument;
+
+    transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Human> lst= new HashMap<>();
     List<Integer> idchk= new ArrayList<>();
@@ -29,22 +33,66 @@ public class Roster {
         return rosName;
     }
 
-    addEntry ob1 = new addEntry(lst);
+//    addEntry ob1 = new addEntry(lst);
+    int temp;
+    void settemp(int a){
+        temp = a;
+    }
+    Human xtemp = new Human();
+    void setHum(Human x){
+        xtemp=x;
+    }
     void addEntry(int a, int b){
         if(b==1){
-            ob1.set_idchk(idchk);
-            ob1.seta(a);
-            lst=ob1.execute();
-            idchk=ob1.get_idchk();
+            Human x = new Human();
+            String nam1, nam2;
+
+            System.out.print("Enter First Name: ");
+            nam1=read.next();
+            x.setFName(nam1);
+
+            System.out.print("Enter Last Name: ");
+            nam2=read.next();
+            x.setLName(nam2);
+
+            System.out.print("Enter Age: ");
+            nument=read.nextInt();
+            x.setAge(nument);
+
+            x.setId(a);
+
+            setHum(x);
+            settemp(a);
+
+            lst.put(a, x);
+            idchk.add(a);
+            System.out.println("Entry added.\n");
         }
         else if(b==2){
-            lst=ob1.redo();
-            idchk=ob1.get_idchk();
+            lst.put(a, xtemp);
+            idchk.add(a);
         }
         else{
-            lst=ob1.undo();
-            idchk=ob1.get_idchk();
+            lst.remove(temp);
         }
+
+
+
+
+//        if(b==1){
+//            ob1.set_idchk(idchk);
+//            ob1.seta(a);
+//            lst=ob1.execute();
+//            idchk=ob1.get_idchk();
+//        }
+//        else if(b==2){
+//            lst=ob1.redo();
+//            idchk=ob1.get_idchk();
+//        }
+//        else{
+//            lst=ob1.undo();
+//            idchk=ob1.get_idchk();
+//        }
     }
 
     void printRoster(){
@@ -90,11 +138,6 @@ public class Roster {
     }
 
 
-    /*---------------------------------------------------------------
-    Remember to correct idchk.
-   -----------------------------------------------------------------*/
-
-
     delEntry ob2 = new delEntry(lst);
     void delEntry(int b){
         if(b==1){
@@ -127,5 +170,11 @@ public class Roster {
             printEntry(z, key);
         }
         System.out.println("======================================");
+    }
+
+    void clear(){
+        rosName=null;
+        rosterId=0;
+        lst.clear();
     }
 }

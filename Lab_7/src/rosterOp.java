@@ -1,9 +1,10 @@
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.*;
 
-public class rosterOp {
+public class rosterOp implements java.io.Serializable {
     public int stuId=1;
     public int teachId=10001;
     public int nument;
@@ -39,30 +40,44 @@ public class rosterOp {
         return choice;
     }
 
-    createRoster ob1 = new createRoster();
+    int temp;
+    void settemp(int a){
+        temp = a;
+    }
+    Roster xtemp = new Roster();
+    void setRos(Roster x){
+        xtemp=x;
+    }
+
+
     public void createRoster(int a){
-        ob1.set_idchk(idchk);
-        ob1.setRos(rosLst);
-        //ob1.setNum(rosterid);
-        rosterid++;
-        while(idchk.contains(rosterid)){
+        Roster x=new Roster();
+        if(a==1) {
+            String r;
+            settemp(rosterid);
+            System.out.print("Enter the Name for roster: ");
+            r = read.next();
+            x.setRosterId(rosterid);
+            x.setRosName(r);
+            setRos(x);
+            rosLst.put(rosterid, x);
+            idchk.add(rosterid);
+            System.out.println("The Roster has been Created.\n");
             rosterid++;
-        }
-        if(a==1){
-            ob1.setNum(rosterid);
-            rosLst=ob1.execute();
-            idchk=ob1.get_idchk();
-        }
-        else if(a==2){
-            rosLst=ob1.redo();
-            idchk=ob1.get_idchk();
-        }
-        else{
-            rosLst=ob1.undo();
-            idchk=ob1.get_idchk();
+            while (idchk.contains(rosterid)){
+                rosterid++;
+            }
         }
 
-        idchk=ob1.get_idchk();
+        else if(a==2){
+            System.out.println("Temp is: "+ temp);
+            rosLst.put(rosterid, xtemp);
+            idchk.add(rosterid);
+        }
+        else{
+            rosLst.remove(temp);
+            //idchk.remove(temp);
+        }
         lastCommand=1;
     }
 
@@ -188,23 +203,27 @@ public class rosterOp {
         for (Integer key_r : rosLst.keySet()) {
             if (key_r == i) {
                 Set<Map.Entry<Integer, Human>> set = rosLst.get(key_r).lst.entrySet();
-                List<Map.Entry<Integer, Human>> list = new ArrayList<Map.Entry<Integer, Human>>(set);
+                List<Map.Entry<Integer, Human>> list = new ArrayList<>(set);
                 Collections.sort(list, new Comparator<HashMap.Entry<Integer, Human>>() {
                     @Override
                     public int compare(HashMap.Entry<Integer, Human> o1, HashMap.Entry<Integer, Human> o2) {
                         return (o1.getValue().getAge()) - (o2.getValue().getAge());
                     }
                 });
+
                 Roster roster = rosLst.get(i);
-                System.out.println("Roster ID: " + roster.getRosterId());
-                System.out.println("Roster Name: " + roster.getrosName());
-                System.out.println("Student");
+                System.out.println("======================================");
+                System.out.println("Roster Id " + roster.getRosterId() );
+                System.out.println("Roster Name: " + roster.getRosterId());
                 for (HashMap.Entry<Integer, Human> entry : list) {
-                    //System.out.println("StudentID: " +entry.getValue().());
-                    System.out.println("Student Age: " + entry.getValue().getAge());
-                    System.out.println("Student First name: " + entry.getValue().getFName());
-                    System.out.println("Student Last name: " + entry.getValue().getLName());
+                    if(entry.getValue().getId()<10000)
+                        System.out.println("Student:");
+                    else
+                        System.out.println("Teacher:");
+
+                    entry.getValue().printEntry();
                 }
+                System.out.println("======================================");
             }
         }
     }

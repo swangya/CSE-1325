@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class modEntry implements Command {
+public class modEntry implements Command, java.io.Serializable {
     transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Human> lst= new HashMap<>();
