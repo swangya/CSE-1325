@@ -48,6 +48,9 @@ public class Main implements java.io.Serializable {
                     ros.undo();
                     break;
                 case 12:
+                    ros.redo();
+                    break;
+                case 13:
                     cont=false;
                     break;
             }

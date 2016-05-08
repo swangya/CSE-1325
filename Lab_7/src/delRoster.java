@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class delRoster implements command2{
-    Scanner read = new Scanner(System.in);
+    transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Roster> rosLst= new HashMap<>();
     HashMap<Integer, Roster> templst= new HashMap<>();
@@ -43,6 +43,12 @@ public class delRoster implements command2{
     @Override
     public HashMap<Integer, Roster> undo(){
         rosLst.put(delId, temp);
+        return rosLst;
+    }
+
+    @Override
+    public HashMap<Integer, Roster> redo(){
+        rosLst.remove(delId);
         return rosLst;
     }
 }

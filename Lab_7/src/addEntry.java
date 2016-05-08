@@ -7,6 +7,7 @@ public class addEntry implements Command {
     HashMap<Integer, Human> templst= new HashMap<>();
     List<Integer> idchk= new ArrayList<>();
     int a;
+    Human x = new Human();
 
     addEntry(HashMap<Integer, Human> a){
         lst=a;
@@ -28,7 +29,6 @@ public class addEntry implements Command {
 
     @Override
     public HashMap<Integer, Human> execute() {
-        Human x = new Human();
         String nam1, nam2;
 
         System.out.print("Enter First Name: ");
@@ -56,6 +56,12 @@ public class addEntry implements Command {
     public HashMap<Integer, Human> undo(){
         System.out.println("Last action undone");
         lst.remove(a);
+        return lst;
+    }
+
+    @Override
+    public HashMap<Integer, Human> redo(){
+        lst.put(a, x);
         return lst;
     }
 }

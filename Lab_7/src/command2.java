@@ -5,5 +5,6 @@ public interface command2 {
 
     HashMap<Integer, Roster> execute();
     HashMap<Integer, Roster> undo();
+    HashMap<Integer, Roster> redo();
 
 }

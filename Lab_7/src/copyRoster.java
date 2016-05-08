@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Created by Swangya on 5/7/2016.
  */
 public class copyRoster implements command2{
-    Scanner read = new Scanner(System.in);
+    transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Roster> rosLst= new HashMap<>();
     HashMap<Integer, Roster> templst= new HashMap<>();
@@ -32,10 +32,12 @@ public class copyRoster implements command2{
         Temp.idchk=a.idchk;
     }
 
+    Roster y= new Roster();
+
     @Override
     public HashMap<Integer, Roster> execute(){
         Roster x;
-        Roster y= new Roster();
+
         String nam;
         int ident;
         System.out.print("Enter the Roster Id to copy: ");
@@ -68,6 +70,13 @@ public class copyRoster implements command2{
     @Override
     public HashMap<Integer, Roster> undo(){
         rosLst.remove(newId);
+        return rosLst;
+    }
+
+    @Override
+    public HashMap<Integer, Roster> redo(){
+        idchk.add(newId);
+        rosLst.put(newId, y);
         return rosLst;
     }
 

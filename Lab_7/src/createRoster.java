@@ -2,13 +2,16 @@ import java.util.*;
 
 public class createRoster implements command2 {
 
-    Scanner read = new Scanner(System.in);
+    transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Roster> rosLst= new HashMap<>();
     List<Integer> idchk= new ArrayList<>();
     int nument;
+    int id;
 
-
+    void getId(int a){
+        id = a;
+    }
 
     void setRos(HashMap<Integer, Roster> a){
         rosLst=a;
@@ -25,30 +28,31 @@ public class createRoster implements command2 {
         return idchk;
     }
 
+    Roster x = new Roster();
+
     @Override
     public HashMap<Integer, Roster> execute(){
         String r;
-        int y;
-        Roster x = new Roster();
-        System.out.print("Enter the Id for roster: ");
-        y = read.nextInt();
-        setNum(y);
-        if(idchk.contains(nument)){
-            System.out.print("Roster with this Id Already Exist");
-        }
-        else {
-            System.out.print("Enter the Name for roster: ");
-            r = read.next();
-            x.setRosterId(nument);
-            x.setRosName(r);
-            rosLst.put(nument, x);
-            idchk.add(nument);
-            System.out.println("The Roster has been Created.\n");
-        }
+        System.out.print("Enter the Name for roster: ");
+        r = read.next();
+        x.setRosterId(nument);
+        x.setRosName(r);
+        rosLst.put(nument, x);
+        idchk.add(nument);
+        System.out.println("The Roster has been Created.\n");
         return rosLst;
     }
+
+    @Override
     public HashMap<Integer, Roster> undo(){
         rosLst.remove(nument);
+        return rosLst;
+    }
+
+    @Override
+    public HashMap<Integer, Roster> redo(){
+        rosLst.put(nument, x);
+        idchk.add(nument);
         return rosLst;
     }
 

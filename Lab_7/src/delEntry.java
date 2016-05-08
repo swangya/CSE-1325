@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class delEntry implements Command {
-    Scanner read = new Scanner(System.in);
+    transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Human> lst= new HashMap<>();
     HashMap<Integer, Human> templst= new HashMap<>();
@@ -57,6 +57,12 @@ public class delEntry implements Command {
     @Override
     public HashMap<Integer, Human> undo(){
         lst.put(modId, temp);
+        return lst;
+    }
+
+    @Override
+    public HashMap<Integer, Human> redo(){
+        lst.remove(modId);
         return lst;
     }
 

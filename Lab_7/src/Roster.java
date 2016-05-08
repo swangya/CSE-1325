@@ -37,6 +37,10 @@ public class Roster {
             lst=ob1.execute();
             idchk=ob1.get_idchk();
         }
+        else if(b==2){
+            lst=ob1.redo();
+            idchk=ob1.get_idchk();
+        }
         else{
             lst=ob1.undo();
             idchk=ob1.get_idchk();
@@ -75,6 +79,10 @@ public class Roster {
             lst=ob3.execute();
             idchk=ob3.get_idchk();
         }
+        else if(b==2){
+            lst=ob3.redo();
+            idchk=ob3.get_idchk();
+        }
         else{
             lst=ob3.undo();
             idchk=ob3.get_idchk();
@@ -92,6 +100,10 @@ public class Roster {
         if(b==1){
             ob2.set_idchk(idchk);
             lst=ob2.execute();
+            idchk=ob2.get_idchk();
+        }
+        else if(b==2){
+            lst=ob2.redo();
             idchk=ob2.get_idchk();
         }
         else{
@@ -116,7 +128,4 @@ public class Roster {
         }
         System.out.println("======================================");
     }
-
-
-
 }

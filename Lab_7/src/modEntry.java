@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class modEntry implements Command {
-    Scanner read = new Scanner(System.in);
+    transient Scanner read = new Scanner(System.in);
 
     HashMap<Integer, Human> lst= new HashMap<>();
     HashMap<Integer, Human> templst= new HashMap<>();
@@ -33,10 +33,11 @@ public class modEntry implements Command {
     List<Integer> get_idchk(){
         return idchk;
     }
+    Human z = new Human();
 
     @Override
     public HashMap<Integer, Human> execute() {
-        Human z = new Human();
+
         int a;
         int choice;
         System.out.print("Enter Id to be modified");
@@ -106,7 +107,20 @@ public class modEntry implements Command {
         }
         else{
             lst.remove(modId);
-            lst.put(modId, temp);
+            lst.put(modId, z);
+        }
+        return lst;
+    }
+
+    @Override
+    public HashMap<Integer, Human> redo(){
+        if (ch==1){
+            lst.remove(modId);
+            lst.put(nument, z);
+        }
+        else{
+            lst.remove(modId);
+            lst.put(modId, z);
         }
         return lst;
     }

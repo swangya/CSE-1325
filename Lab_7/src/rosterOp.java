@@ -13,7 +13,9 @@ public class rosterOp {
     HashMap<Integer, Roster> rosLst = new HashMap<Integer, Roster>();
     List<Integer>idchk= new ArrayList<>();
 
-    Scanner read = new Scanner(System.in);
+    int rosterid=1;
+
+    transient Scanner read = new Scanner(System.in);
 
     public int printOptions(){
         int choice;
@@ -29,7 +31,8 @@ public class rosterOp {
         System.out.println("9.\tSerialize a Roster");
         System.out.println("10.\tSerialize all Roster");
         System.out.println("11.\tUndo");
-        System.out.println("11.\tEXIT");
+        System.out.println("12.\tRedo");
+        System.out.println("13.\tEXIT");
 
         System.out.print("Enter your choice: ");
         choice=read.nextInt();
@@ -40,12 +43,23 @@ public class rosterOp {
     public void createRoster(int a){
         ob1.set_idchk(idchk);
         ob1.setRos(rosLst);
+        //ob1.setNum(rosterid);
+        rosterid++;
+        while(idchk.contains(rosterid)){
+            rosterid++;
+        }
         if(a==1){
+            ob1.setNum(rosterid);
             rosLst=ob1.execute();
+            idchk=ob1.get_idchk();
+        }
+        else if(a==2){
+            rosLst=ob1.redo();
             idchk=ob1.get_idchk();
         }
         else{
             rosLst=ob1.undo();
+            idchk=ob1.get_idchk();
         }
 
         idchk=ob1.get_idchk();
@@ -109,6 +123,10 @@ public class rosterOp {
         ob2.set_idchk(idchk);
         if(a==1){
             rosLst=ob2.execute();
+            idchk=ob2.get_idchk();
+        }
+        else if(a==2){
+            rosLst=ob2.redo();
             idchk=ob2.get_idchk();
         }
         else{
@@ -207,6 +225,10 @@ public class rosterOp {
             rosLst=ob3.execute();
             idchk=ob3.get_idchk();
         }
+        else if(a==2){
+            rosLst=ob3.redo();
+            idchk=ob3.get_idchk();
+        }
         else{
             rosLst=ob3.undo();
         }
@@ -273,34 +295,70 @@ public class rosterOp {
         Roster x;
         switch (lastCommand){
             case 1:
-                createRoster(2);
+                createRoster(3);
                 System.out.println("Last action Undone!");
                 break;
             case 2:
                 x=rosLst.get(lastrosid);
-                x.addEntry(lastId, 2);
+                x.addEntry(lastId, 3);
                 System.out.println("Last action Undone!");
                 break;
             case 3:
                 x=rosLst.get(lastrosid);
-                x.modEntry(2);
+                x.modEntry(3);
                 System.out.println("Last action Undone!");
                 break;
             case 4:
                 x=rosLst.get(lastrosid);
-                x.delEntry(2);
+                x.delEntry(3);
                 System.out.println("Last action Undone!");
                 break;
             case  5:
-                delRoster(2);
+                delRoster(3);
                 System.out.println("Last action Undone!");
                 break;
             case 6:
-                copyRoster(2);
+                copyRoster(3);
                 System.out.println("Last action Undone!");
                 break;
             default:
                 System.out.println("Last action can't be undone");
+                break;
+        }
+    }
+
+    void redo(){
+        Roster x;
+        switch (lastCommand){
+            case 1:
+                createRoster(2);
+                System.out.println("Last action Redone!");
+                break;
+            case 2:
+                x=rosLst.get(lastrosid);
+                x.addEntry(lastId, 2);
+                System.out.println("Last action Redone!");
+                break;
+            case 3:
+                x=rosLst.get(lastrosid);
+                x.modEntry(2);
+                System.out.println("Last action Redone!");
+                break;
+            case 4:
+                x=rosLst.get(lastrosid);
+                x.delEntry(2);
+                System.out.println("Last action Redone!");
+                break;
+            case  5:
+                delRoster(2);
+                System.out.println("Last action Redone!");
+                break;
+            case 6:
+                copyRoster(2);
+                System.out.println("Last action Redone!");
+                break;
+            default:
+                System.out.println("Last action can't be redone");
                 break;
         }
     }

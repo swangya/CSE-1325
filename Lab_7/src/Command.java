@@ -6,4 +6,5 @@ import java.util.Map;
 public interface Command {
     Map<Integer, Human> execute();
     Map<Integer, Human> undo();
+    Map<Integer, Human> redo();
 }
